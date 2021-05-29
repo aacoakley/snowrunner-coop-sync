@@ -1,41 +1,41 @@
-import kotlinx.cinterop.memScoped
+import kotlinx.cli.ArgParser
+import kotlinx.cli.ArgType
+import kotlinx.cli.default
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
-import platform.posix.*
+import platform.posix.printf
+import platform.posix.system
 
-fun main() {
-    println(Path.get())
-    println(Path.getBackup())
-    backupSave()
+fun main(args: Array<String>) {
+    infoln("Start: ")
+    val saveFile = parseSaveGame(args)
+    infoln("Path: ${saveFile.path}")
+    infoln("Path for backup folder: ${saveFile.backupLocation}")
+    infoln("Save game name: ${saveFile.name}")
+    saveFile.backupSaveFiles()
 
-    val result = "tasklist /FO CSV /FI \"ImageName eq SnowRunner.exe\" /NH".executeCommand()
-    println("RESULT: $result")
-
-    val json = Json.parseToJsonElement("${Path.get()}\\CompleteSave.cfg".readFile())
+    infoln("Reading original save file")
+    val json = Json.parseToJsonElement(saveFile.readFile())
     val discoveredObjectives = json.jsonObject["CompleteSave"]!!
         .jsonObject["SslValue"]!!
-        .jsonObject["discoveredObjectives"]
+        .jsonObject["discoveredObjectives"]?.info()
 
-    println(discoveredObjectives.toString())
-
-//    system("start steam://rungameid/1465360")
+    system("start steam://rungameid/1465360")
 
     waitForSessionEnd()
 
-    println("Session closed")
-
-
+    infoln("Session closed")
 }
 
 fun waitForSessionEnd() = runBlocking {
-        val imageName = "SnowRunner.exe"
-        val notFound = "INFO:"
-        val command = "tasklist /FO CSV /FI \"ImageName eq SnowRunner.exe\" /NH"
+    val imageName = "SnowRunner.exe"
+    val notFound = "INFO:"
+    val command = "tasklist /FO CSV /FI \"ImageName eq SnowRunner.exe\" /NH"
 
-        waitForProcess(command, notFound)
-        waitForProcess(command, imageName)
+    waitForProcess(command, notFound)
+    waitForProcess(command, imageName)
 }
 
 suspend fun waitForProcess(command: String, message: String) {
@@ -44,14 +44,15 @@ suspend fun waitForProcess(command: String, message: String) {
     }
 }
 
-object Path {
-    fun get(): String {
-        return "cd %PROGRAMFILES(X86)%\\steam\\userdata\\*0\\1465360\\remote && cd".executeCommand()
-            .replace("Program Files (x86)", "\"Program Files (x86)\"")
-            .filter { it != ('\n') }
-    }
+private fun parseSaveGame(args: Array<String>): SaveFile {
+    val parser = ArgParser("CoopSync")
+    val dir by parser.option(ArgType.String, shortName = "d", description = "Your current save file location").default(Constants.defaultPath)
+    val saveFile by parser.option(ArgType.String, shortName = "f", description = "Save file name including extension. Should be something like CompleteSave.*").default(Constants.defaultName)
+    val saveSlot by parser.option(ArgType.Int, shortName = "s", description = "Which save slot you are using. Should be 1, 2, 3, or 4").default(Constants.defaultPrefix)
 
-    fun getBackup(): String {
-        return get() + "\\backupSaves"
-    }
+    parser.parse(args).info("Parser result: ")
+    dir.info()
+    saveFile.info()
+    saveSlot.info()
+    return SaveFile(dir, saveFile, saveSlot)
 }
