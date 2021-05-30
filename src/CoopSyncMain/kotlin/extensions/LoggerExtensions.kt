@@ -1,3 +1,5 @@
+package extensions
+
 inline fun <reified T> T.info(message: String = ""): T {
     return this.also { println("[INFO] $message$this") }
 }

@@ -1,3 +1,3 @@
 
-rootProject.name = "SnowRunnerCoopSync"
+rootProject.name = "CoopSync"
 

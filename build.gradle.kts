@@ -23,8 +23,12 @@ kotlin {
 
     CoopSyncTarget.apply {
         binaries {
-            executable {
-                entryPoint = "main"
+            executable("SnowRunnerCoopSync-Host") {
+                entryPoint = "host.main"
+
+            }
+            executable("SnowRunnerCoopSync-Guest") {
+                entryPoint = "guest.main"
             }
         }
     }
@@ -38,8 +42,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-cli:0.3.2")
             }
         }
-        val CoopSyncMain by getting {
-        }
+        val CoopSyncMain by getting
         val CoopSyncTest by getting
     }
 }

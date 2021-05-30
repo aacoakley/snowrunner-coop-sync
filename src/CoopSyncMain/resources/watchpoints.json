@@ -1,0 +1,149 @@
+{
+  "watchPointsData": {
+    "data": {
+      "level_us_02_02_new": {
+        "US_02_02_WP_03": false,
+        "US_02_02_WP_02": false,
+        "US_02_02_WP_01": false
+      },
+      "level_us_01_01": {
+        "US_01_01_W6": false,
+        "US_01_01_W9": false,
+        "US_01_01_W3": true,
+        "US_01_01_W1": false,
+        "US_01_01_W5": true,
+        "US_01_01_W7": true,
+        "US_01_01_W4": true,
+        "US_01_01_W8": true
+      },
+      "level_ru_02_03": {
+        "RU_02_03_WATCHPOINT_3": false,
+        "RU_02_03_WATCHPOINT_1": false,
+        "RU_02_03_WATCHPOINT_2": false
+      },
+      "level_ru_04_03": {
+        "WATCHPOINT_SE": false,
+        "WATCHPOINT_W": false,
+        "WATCHPOINT_C": false
+      },
+      "level_ru_02_02": {
+        "RU_02_02_W1": false,
+        "RU_02_02_W2": false,
+        "RU_02_02_W3": false
+      },
+      "level_us_04_02": {
+        "US_04_02_W7": false,
+        "US_04_02_W1": false,
+        "US_04_02_W5": false,
+        "US_04_02_W3": false,
+        "US_04_02_W4": false,
+        "US_04_02_W2": false,
+        "US_04_02_W6": false
+      },
+      "level_us_01_04_new": {
+        "US_01_04_W3": false,
+        "US_01_04_W2": false,
+        "US_01_04_W4": false,
+        "US_01_04_W1": false
+      },
+      "level_ru_04_02": {
+        "RU_04_02_WATCHTOWER_05": false,
+        "RU_04_02_WATCHTOWER_04": false,
+        "RU_04_02_WATCHTOWER_02": false,
+        "RU_04_02_WATCHTOWER_03": false,
+        "RU_04_02_WATCHTOWER_01": false
+      },
+      "level_ru_04_01": {
+        "RU_04_01_WT_01": false,
+        "RU_04_01_WT_02": false,
+        "RU_04_01_WT_04": false,
+        "RU_04_01_WT_03": false
+      },
+      "level_us_02_01": {
+        "US_02_01_WP_04": false,
+        "US_02_01_WP_03": false,
+        "US_02_01_WP_02": false,
+        "US_02_01_WP_01": false
+      },
+      "level_us_02_03_new": {
+        "US_02_03_WP_01": false,
+        "US_02_03_WP_05": false,
+        "US_02_03_WP_02": false,
+        "US_02_03_WP_04": false,
+        "US_02_03_WP_03": false
+      },
+      "level_us_03_01": {
+        "US_03_01_WP_03": false,
+        "US_03_01_WP_02": false,
+        "US_03_01_WP_01": false
+      },
+      "level_us_01_02": {
+        "US_01_02_W5": false,
+        "US_01_02_W7": false,
+        "US_01_02_W1": false,
+        "US_01_02_W4": false,
+        "US_01_02_W2": false,
+        "US_01_02_W3": false
+      },
+      "level_ru_03_01": {
+        "RU_03_01_WATCHPOINT_2": false,
+        "RU_03_01_WATCHPOINT_1": false,
+        "RU_03_01_WATCHPOINT_0": false
+      },
+      "level_ru_02_04": {
+        "WATCHPOINT_FARM_NORTH": false,
+        "WATCHPOINT_MINES_NORTH": false,
+        "WATCHPOINT_MOUNTAIN_SOUTH": false,
+        "WATCHPOINT_SHORE_SOUTH": false
+      },
+      "level_us_04_01": {
+        "US_04_01_WT_01": false,
+        "US_04_01_WT_02": false,
+        "US_04_01_WT_03": false,
+        "US_04_01_WT_04": false
+      },
+      "level_us_02_04_new": {
+        "US_02_04_W1": false,
+        "US_02_04_W2": false,
+        "US_02_04_W4": false,
+        "US_02_04_W3": false
+      },
+      "level_us_03_02": {
+        "US_03_02_W5": false,
+        "US_03_02_W1": false,
+        "US_03_02_W3": false,
+        "US_03_02_W2": false,
+        "US_03_02_W4": false
+      },
+      "level_ru_03_02": {
+        "RU_03_02_WATCHTOWER_1": false,
+        "RU_03_02_WATCHTOWER_4": false,
+        "RU_03_02_WATCHTOWER_2": false
+      },
+      "level_ru_02_01_crop": {
+        "WATCHPOINT_HILL_EAST": false,
+        "WATCHPOINT_SWAMP_EAST": false,
+        "WATCHPOINT_CHURCH_NORTH": false,
+        "WATCHPOINT_HILL_SOUTHWEST": false,
+        "WATCHPOINT_CLIFFSIDE_WEST": false,
+        "WATCHPOINT_HILL_SOUTH": false
+      },
+      "level_us_01_03": {
+        "US_01_03_W6": false,
+        "US_01_03_W8": false,
+        "US_01_03_W1": false,
+        "US_01_03_W4": false,
+        "US_01_03_W2": false,
+        "US_01_03_W7": false,
+        "US_01_03_W3": false,
+        "US_01_03_W5": false
+      },
+      "level_ru_04_04": {
+        "RU_04_04_WTR_01": false,
+        "RU_04_04_WTR_02": false,
+        "RU_04_04_WTR_03": false,
+        "RU_04_04_WTR_04": false
+      }
+    }
+  }
+}

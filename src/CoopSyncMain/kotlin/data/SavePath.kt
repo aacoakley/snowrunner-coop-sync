@@ -1,0 +1,19 @@
+package data
+
+import extensions.*
+import util.Time
+
+class SavePath(rawPath: String, fileName: String, val saveSlot: Int, secondaryPath: String) {
+    val path = "cd $rawPath && cd".executeCommand()
+        .replace("Program Files (x86)", "\"Program Files (x86)\"")
+        .filter { it != ('\n') }
+        .info("Path: ")
+
+    val backupLocation = "$path\\backupSaves\\${Time.instant()}".info("Backup Path: ").also { it.makeDir() }
+
+    val name = fileName.prepend(saveSlot).info("File name: ")
+
+    val secondaryPath = "cd $secondaryPath && cd".executeCommand()
+        .filter { it != ('\n') }
+        .info("Export Location: ")
+}

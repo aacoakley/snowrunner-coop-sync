@@ -1,8 +1,11 @@
+package extensions
+
+import data.SavePath
 import kotlinx.cinterop.*
 import platform.posix.*
 
-inline fun SaveFile.readFile(): String {
-    val fp = openPipe("type ${this.path}\\${this.name}")
+inline fun SavePath.readFile(path: String = this.path, name: String = this.name): String {
+    val fp = openPipe("type $path\\$name")
     val file = fp.readToString()
 
     if (file.isEmpty()) {

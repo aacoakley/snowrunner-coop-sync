@@ -1,3 +1,6 @@
+object MattsSave {
+    const val data = """
+
 {
   "CompleteSave": {
     "SslType": "SaveObject",
@@ -951,6 +954,22 @@
       },
       "discoveredObjectives": [
         "US_01_01_LOST_CARGO_TSK",
+        "US_01_01_WOODEN_ORDER_CNT",
+        "US_01_01_FALLEN_POWER_LINES_TSK",
+        "US_01_01_MOTEL_NEEDS_TSK",
+        "US_01_01_KING_OF_HILLS_TSK",
+        "US_01_01_MOUNTAIN_BRIDGE_TSK",
+        "US_01_01_ROAD_BLOCKAGE_TSK",
+        "US_01_01_THE_PLACE_BEYOND_THE_SPRUCES_TSK",
+        "US_01_01_DROWNED_TRUCK_01_TSK",
+        "US_01_01_FOOD_DELIVERY_CNT",
+        "US_01_01_DROWNED_TRUCK_02_TSK",
+        "US_02_01_CONTAINERS_IN_RIVER_TSK",
+        "US_02_01_BAGS_ON_ICE_TSK",
+        "US_02_01_STUCK_SCOUT_TSK",
+        "RU_02_02_LOST_CARGO_02_TSK",
+        "RU_02_02_LOST_CARGO_01_TSK",
+        "RU_02_02_STUCK_TRUCK_02_TSK""US_01_01_LOST_CARGO_TSK",
         "US_01_01_WOODEN_ORDER_CNT",
         "US_01_01_FALLEN_POWER_LINES_TSK",
         "US_01_01_MOTEL_NEEDS_TSK",
@@ -2879,4 +2898,6 @@
     }
   },
   "cfg_version": 1
+}
+"""
 }
