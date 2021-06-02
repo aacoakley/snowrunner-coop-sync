@@ -1,12 +1,11 @@
 package data
 
-import guest.readSave
+import data.Json.JsonBuilder.json
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonObject
-import util.Serializer.json
 
 @Serializable
 data class SaveFile(val fullJsonElement: JsonElement) {
@@ -30,11 +29,5 @@ data class SaveFile(val fullJsonElement: JsonElement) {
         .let { json.decodeFromJsonElement(it) }
 
     inline fun ownedTrucks(): JsonObject = fullJsonElement.readSave("persistentProfileData", "ownedTrucks").jsonObject
-
-
-
-//    inline fun SaveFile.toString() {
-//        this.fullJsonElement.readSave("discoveredObjectives") = json.encodeToJsonElement(this.discoveredObjectives)
-//    }
 }
 

@@ -14,15 +14,16 @@ inline fun SavePath.getSaveFiles(): List<String> = "dir $path /B".executeCommand
     }
 
 inline fun SavePath.backupSaveFiles() = getSaveFiles().forEach { copy(it) }
+inline fun SavePath.removeOldFiles() = getSaveFiles().forEach { "del $path\\$it" }
 
 inline fun String.prepend(saveSlot: Int): String = if (saveSlot > 0) "${saveSlot}_$this" else this
 inline fun String.append(saveSlot: Int): String = if (saveSlot > 0) "$this$saveSlot" else this
 
 inline fun SavePath.copy(
     fileName: String,
-    fileLocation: String = this.path,
+    fileLocation: String = path,
     copiedFileName: String = fileName,
-    copyLocation: String = this.backupLocation
+    copyLocation: String = backupLocation
 ) = "copy $fileLocation\\$fileName $copyLocation\\$copiedFileName /Y".executeCommand()
 
 inline fun String.makeDir(): String = "mkdir $this".executeCommand()

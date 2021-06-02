@@ -7,11 +7,8 @@ import kotlinx.cli.ArgType
 import kotlinx.cli.default
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.json.decodeFromJsonElement
-import kotlinx.serialization.json.jsonObject
 import platform.posix.system
 import util.Constants
-import util.Serializer
 
 fun main(args: Array<String>) {
     infoln("Start: ")

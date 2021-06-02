@@ -5,7 +5,7 @@ import kotlinx.serialization.json.*
 import util.CompleteSave
 import util.OldSave
 import util.SaveFields
-import util.Serializer
+import data.Serializer
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertNotEquals
