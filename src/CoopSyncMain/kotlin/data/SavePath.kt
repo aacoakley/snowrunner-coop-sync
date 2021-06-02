@@ -11,9 +11,8 @@ class SavePath(rawPath: String, fileName: String, val saveSlot: Int, secondaryPa
 
     val backupLocation = "$path\\backupSaves\\${Time.instant()}".info("Backup Path: ").also { it.makeDir() }
 
-    val name = fileName.prepend(saveSlot).info("File name: ")
+    val name = fileName.append(saveSlot).info("File name: ")
 
     val secondaryPath = "cd $secondaryPath && cd".executeCommand()
         .filter { it != ('\n') }
-        .info("Export Location: ")
 }

@@ -1,7 +1,10 @@
 package host
 
 import data.SavePath
-import extensions.*
+import extensions.backupSaveFiles
+import extensions.executeCommand
+import extensions.infoln
+import extensions.packageSaveState
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.default
@@ -60,7 +63,7 @@ private fun parseArgs(args: Array<String>): SavePath {
         ArgType.Int,
         shortName = "s",
         description = "Which save slot you are using. Should be 1, 2, 3, or 4"
-    ).default(Constants.defaultPrefix)
+    ).default(Constants.defaultSlot)
     val exportPath by parser.option(
         ArgType.String,
         shortName = "e",

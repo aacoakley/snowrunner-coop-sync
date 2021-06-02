@@ -1,11 +1,9 @@
 package data
 
-import data.Json.JsonBuilder.json
+import util.Json.JsonBuilder.json
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.decodeFromJsonElement
-import kotlinx.serialization.json.jsonObject
 
 @Serializable
 data class SaveFile(val fullJsonElement: JsonElement) {

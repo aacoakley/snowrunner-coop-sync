@@ -5,7 +5,7 @@ import platform.posix.system
 import util.Constants
 import util.Time
 
-inline fun SavePath.getSaveFiles(): List<String> = "dir $path /B".executeCommand()
+fun SavePath.getSaveFiles(): List<String> = "dir $path /B".executeCommand()
     .lines()
     .filter {
         it.startsWith("fog".prepend(saveSlot))
@@ -13,8 +13,18 @@ inline fun SavePath.getSaveFiles(): List<String> = "dir $path /B".executeCommand
                 || it == name.append(saveSlot)
     }
 
+fun SavePath.moveNewFiles(newSave: String) {
+    val files = getSaveFiles()
+    removeOldFiles(files)
+
+    files.minus(name)
+        .forEach { copy(fileName = it, fileLocation = secondaryPath, copyLocation = path, copiedFileName = it) }
+
+    writeAllText("$path\\$name)", newSave)
+}
+
 inline fun SavePath.backupSaveFiles() = getSaveFiles().forEach { copy(it) }
-inline fun SavePath.removeOldFiles() = getSaveFiles().forEach { "del $path\\$it" }
+inline fun SavePath.removeOldFiles(files: List<String>) = files.forEach { "del $path\\$it" }
 
 inline fun String.prepend(saveSlot: Int): String = if (saveSlot > 0) "${saveSlot}_$this" else this
 inline fun String.append(saveSlot: Int): String = if (saveSlot > 0) "$this$saveSlot" else this
@@ -40,7 +50,8 @@ fun packageSaveState(savePath: SavePath) {
     //copy the guest .exe to the folder for ease of use
     savePath.copy(fileName = Constants.guestExeName, fileLocation = ".", copyLocation = snowRunnerFolder)
     //compress for easy transfer
-    "cd ${savePath.secondaryPath} && tar.exe -acf SnowRunnerSync.zip ${Constants.snowRunnerFolder}".executeCommand().info("Compressing Save Data")
+    "cd ${savePath.secondaryPath} && tar.exe -acf SnowRunnerSync.zip ${Constants.snowRunnerFolder}".executeCommand()
+        .info("Compressing Save Data")
     //delete tmp folder
     "rmdir /s /q SnowRunnerSync".executeCommand().info("Cleaning up temp folder")
 }

@@ -1,22 +1,18 @@
 package guest
 
 import MattsSave
-import data.Json.JsonBuilder.json
+import util.Json.json
 import data.SaveFile
 import data.SavePath
-import data.syncSaves
 import extensions.backupSaveFiles
-import extensions.infoln
-import extensions.writeAllText
+import extensions.moveNewFiles
+import extensions.removeOldFiles
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.default
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.*
 import util.CompleteSave
 import util.Constants
 import util.OldSave
-import util.SaveFields
 
 fun main(args: Array<String>) {
     val savePath = parseArgs(args)
@@ -26,8 +22,8 @@ fun main(args: Array<String>) {
     val preSessionSave = SaveFile(json.parseToJsonElement(OldSave.data))
     val postSessionSave = SaveFile(json.parseToJsonElement(CompleteSave.data))
 
-    syncSaves(originalSave, preSessionSave, postSessionSave)
-
+    val newSave = JsonProcessor().syncSaves(originalSave, preSessionSave, postSessionSave)
+    savePath.moveNewFiles(newSave)
     TODO("Implement file movement")
 }
 
@@ -44,12 +40,12 @@ private fun parseArgs(args: Array<String>): SavePath {
         ArgType.Int,
         shortName = "s",
         description = "Which save slot you are using. Should be 1, 2, 3, or 4"
-    ).default(Constants.defaultPrefix)
+    ).default(Constants.defaultSlot)
     val importPath by parser.option(
         ArgType.String,
         shortName = "e",
-        description = "Location where the exported saves data will go post-session"
-    ).default(Constants.defaultExportPath)
+        description = "Location where the import save data will be"
+    ).default(Constants.defaultImportPath)
 
     parser.parse(args)
     return SavePath(dir, saveFile, saveSlot, importPath)
