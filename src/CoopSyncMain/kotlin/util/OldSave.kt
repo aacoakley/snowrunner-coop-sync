@@ -2758,17 +2758,7 @@ object OldSave {
         }
       },
       "viewedUnactivatedObjectives": [
-        "US_02_01_LOGS_01_OBJ",
-        "US_02_01_DRILL_DELIVERY_OBJ",
-        "US_01_01_WOODEN_ORDER_CNT",
-        "US_01_01_LOST_CONTAINERS_OBJ",
-        "US_01_04_MED_LOGS_2_OBJ",
-        "US_02_01_POLAR_BASE_OBJ",
-        "US_01_04_MULTIORDER_OBJ",
-        "US_01_04_MED_LOGS_OBJ",
-        "US_01_04_LONG_LOGS_OBJ",
-        "US_01_01_METEO_DATA_CNT",
-        "US_01_02_FARM_ORDER_OBJ"
+        "69"
       ],
       "visitedLevels": [
         "level_us_01_01",

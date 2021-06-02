@@ -1,24 +1,40 @@
 package data
 
+import guest.readSave
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonObject
-import util.Serializer
+import util.Serializer.json
 
 @Serializable
 data class SaveFile(val fullJsonElement: JsonElement) {
-    var discoveredObjectives: List<String> = fullJsonElement.readSave().jsonObject["discoveredObjectives"]
-        ?.let { Serializer.json.decodeFromJsonElement<List<String>>(it) }
-        ?: listOf()
+    inline fun discoveredObjectives(): List<String> = fullJsonElement.readSave("discoveredObjectives")
+        .let { json.decodeFromJsonElement(it) }
 
-    var objectiveStates: JsonObject = fullJsonElement.readSave().jsonObject["objectiveStates"]!!.jsonObject
+    inline fun objectiveStates(): JsonObject = fullJsonElement.readSave("objectiveStates").jsonObject
 
-    var watchPointsData: JsonObject = fullJsonElement.readSave().jsonObject["watchPointsData"]!!.jsonObject["data"]!!.jsonObject
+    inline fun watchPointsData(): JsonObject = fullJsonElement.readSave("watchPointsData", "data").jsonObject
 
-    var discoveredTrucks: JsonObject = fullJsonElement.readSave().jsonObject["persistentProfileData"]!!.jsonObject["discoveredTrucks"]!!.jsonObject
+    inline fun discoveredTrucks(): JsonObject =
+        fullJsonElement.readSave("persistentProfileData", "discoveredTrucks").jsonObject
 
+    inline fun viewedUnactivatedObjectives(): List<String> = fullJsonElement.readSave("viewedUnactivatedObjectives")
+        .let { json.decodeFromJsonElement(it) }
+
+    inline fun visitedLevels(): List<String> = fullJsonElement.readSave("visitedLevels")
+        .let { json.decodeFromJsonElement(it) }
+
+    inline fun newTrucks(): List<String> = fullJsonElement.readSave("persistentProfileData", "newTrucks")
+        .let { json.decodeFromJsonElement(it) }
+
+    inline fun ownedTrucks(): JsonObject = fullJsonElement.readSave("persistentProfileData", "ownedTrucks").jsonObject
+
+
+
+//    inline fun SaveFile.toString() {
+//        this.fullJsonElement.readSave("discoveredObjectives") = json.encodeToJsonElement(this.discoveredObjectives)
+//    }
 }
 
-inline fun JsonElement.readSave() = this.jsonObject["CompleteSave"]!!.jsonObject["SslValue"]!!

@@ -23,10 +23,9 @@ inline fun SavePath.copy(
     fileLocation: String = this.path,
     copiedFileName: String = fileName,
     copyLocation: String = this.backupLocation
-) = system("copy $fileLocation\\$fileName $copyLocation\\$copiedFileName /Y")
-//    .info("copy $fileLocation\\$fileName $copyLocation\\$copiedFileName")
+) = "copy $fileLocation\\$fileName $copyLocation\\$copiedFileName /Y".executeCommand()
 
-inline fun String.makeDir(): String = system("mkdir $this")
+inline fun String.makeDir(): String = "mkdir $this".executeCommand()
     .info("Successfully made directory $this")
     .let { this }
 
@@ -40,7 +39,7 @@ fun packageSaveState(savePath: SavePath) {
     //copy the guest .exe to the folder for ease of use
     savePath.copy(fileName = Constants.guestExeName, fileLocation = ".", copyLocation = snowRunnerFolder)
     //compress for easy transfer
-    system("cd ${savePath.secondaryPath} && tar.exe -acf SnowRunnerSync.zip ${Constants.snowRunnerFolder}").info("Compressing Save Data. Exit code: ")
+    "cd ${savePath.secondaryPath} && tar.exe -acf SnowRunnerSync.zip ${Constants.snowRunnerFolder}".executeCommand().info("Compressing Save Data")
     //delete tmp folder
-    system("rmdir /s /q SnowRunnerSync").info("Cleaning up temp folder. Exit code: ")
+    "rmdir /s /q SnowRunnerSync".executeCommand().info("Cleaning up temp folder")
 }

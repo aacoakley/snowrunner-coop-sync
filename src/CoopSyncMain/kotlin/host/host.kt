@@ -21,12 +21,12 @@ fun main(args: Array<String>) {
     infoln("Save game name: ${savePath.name}")
     savePath.backupSaveFiles()
 
-    val jsonElement = Serializer.json.parseToJsonElement(savePath.readFile()).jsonObject["CompleteSave"]!!.jsonObject["SslValue"]!!
+//    val jsonElement = Serializer.json.parseToJsonElement(savePath.readFile()).jsonObject["CompleteSave"]!!.jsonObject["SslValue"]!!
 
-    val discoveredObjectives = jsonElement.jsonObject["discoveredObjectives"]
-        ?.let { Serializer.json.decodeFromJsonElement<List<String>>(it) }
-
-    discoveredObjectives?.forEach { it.info() }
+//    val discoveredObjectives = jsonElement.jsonObject["discoveredObjectives"]
+//        ?.let { Serializer.json.decodeFromJsonElement<List<String>>(it) }
+//
+//    discoveredObjectives?.forEach { it.info() }
 
     system("start steam://rungameid/1465360")
 

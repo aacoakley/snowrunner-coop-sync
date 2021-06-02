@@ -952,41 +952,7 @@ object MattsSave {
           "CargoBarrels": -1
         }
       },
-      "discoveredObjectives": [
-        "US_01_01_LOST_CARGO_TSK",
-        "US_01_01_WOODEN_ORDER_CNT",
-        "US_01_01_FALLEN_POWER_LINES_TSK",
-        "US_01_01_MOTEL_NEEDS_TSK",
-        "US_01_01_KING_OF_HILLS_TSK",
-        "US_01_01_MOUNTAIN_BRIDGE_TSK",
-        "US_01_01_ROAD_BLOCKAGE_TSK",
-        "US_01_01_THE_PLACE_BEYOND_THE_SPRUCES_TSK",
-        "US_01_01_DROWNED_TRUCK_01_TSK",
-        "US_01_01_FOOD_DELIVERY_CNT",
-        "US_01_01_DROWNED_TRUCK_02_TSK",
-        "US_02_01_CONTAINERS_IN_RIVER_TSK",
-        "US_02_01_BAGS_ON_ICE_TSK",
-        "US_02_01_STUCK_SCOUT_TSK",
-        "RU_02_02_LOST_CARGO_02_TSK",
-        "RU_02_02_LOST_CARGO_01_TSK",
-        "RU_02_02_STUCK_TRUCK_02_TSK""US_01_01_LOST_CARGO_TSK",
-        "US_01_01_WOODEN_ORDER_CNT",
-        "US_01_01_FALLEN_POWER_LINES_TSK",
-        "US_01_01_MOTEL_NEEDS_TSK",
-        "US_01_01_KING_OF_HILLS_TSK",
-        "US_01_01_MOUNTAIN_BRIDGE_TSK",
-        "US_01_01_ROAD_BLOCKAGE_TSK",
-        "US_01_01_THE_PLACE_BEYOND_THE_SPRUCES_TSK",
-        "US_01_01_DROWNED_TRUCK_01_TSK",
-        "US_01_01_FOOD_DELIVERY_CNT",
-        "US_01_01_DROWNED_TRUCK_02_TSK",
-        "US_02_01_CONTAINERS_IN_RIVER_TSK",
-        "US_02_01_BAGS_ON_ICE_TSK",
-        "US_02_01_STUCK_SCOUT_TSK",
-        "RU_02_02_LOST_CARGO_02_TSK",
-        "RU_02_02_LOST_CARGO_01_TSK",
-        "RU_02_02_STUCK_TRUCK_02_TSK"
-      ],
+      "discoveredObjectives": ["69"],
       "discoveredObjects": [],
       "forcedModelStates": {},
       "gameStat": {
@@ -1867,7 +1833,7 @@ object MattsSave {
           }
         },
         "damagableAddons": {},
-        "newTrucks": [
+            "newTrucks": [
           "chevrolet_ck1500",
           "international_fleetstar_f2070a"
         ],
@@ -2736,30 +2702,8 @@ object MattsSave {
         }
       },
       "viewedUnactivatedObjectives": [
-        "US_01_01_WOODEN_ORDER_CNT",
-        "US_01_04_CARGO_DELIVERING_OBJ",
-        "US_01_01_FACTORY_RECOVERY_OBJ",
-        "US_01_03_CARGO_PORT_OBJ",
-        "US_01_03_LOST_CARGO_TSK",
-        "US_01_01_DRILLING_RECOVERY_OBJ",
-        "US_01_01_SUPPLIES_FOR_FARMERS_OBJ",
-        "US_01_04_MULTIORDER_OBJ",
-        "US_01_04_SUPPLIES_FOR_REGION_2_OBJ",
-        "US_01_04_CARGO_FROM_SHIP_OBJ",
-        "US_01_03_POWER_WIRES_1_CONTRACT_OBJ",
-        "US_01_03_LUMBER_MILL_REACTIVATION_OBJ",
-        "US_01_02_FUEL_ORDER_OBJ",
-        "US_01_02_WORK_FOR_OLD_SWEAT_OBJ",
-        "US_01_02_MATERIALS_ORDER_OBJ",
-        "US_01_02_FARM_ORDER_OBJ",
-        "US_01_02_RESOURCES_FOR_WINTER_OBJ",
-        "US_01_01_LOST_CONTAINERS_OBJ",
-        "US_01_04_LONG_LOGS_2_OBJ",
-        "US_01_01_TOWN_STORAGE_OBJ",
-        "US_01_04_LONG_LOGS_OBJ",
-        "US_01_01_FOOD_DELIVERY_CNT",
-        "US_01_04_MED_LOGS_2_OBJ",
-        "US_01_04_MED_LOGS_OBJ"
+       "68",
+       "69"
       ],
       "visitedLevels": [
         "level_us_01_01",
