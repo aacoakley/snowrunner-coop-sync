@@ -6,6 +6,7 @@ import extensions.infoln
 import extensions.writeAllText
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.*
+import util.readSave
 
 class JsonProcessor {
     fun syncSaves(originalSave: SaveFile, preSessionSave: SaveFile, postSessionSave: SaveFile): String {
@@ -65,12 +66,6 @@ class JsonProcessor {
         }
 
          return json.encodeToString(newSave)
-    }
-
-    fun JsonElement.readSave(vararg jsonPointer: String): JsonElement {
-        var jsonElement = this.jsonObject["CompleteSave"]!!.jsonObject["SslValue"]!!
-        jsonPointer.forEach { jsonElement = jsonElement.jsonObject[it]!! }
-        return jsonElement
     }
 
     private fun JsonObject.processOwnedTrucks(preSessionOwned: JsonElement, postSessionOwned: JsonElement, newTrucks: JsonElement): JsonObject {

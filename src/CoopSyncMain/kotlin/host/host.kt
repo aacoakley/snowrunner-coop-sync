@@ -21,13 +21,6 @@ fun main(args: Array<String>) {
     infoln("Save game name: ${savePath.name}")
     savePath.backupSaveFiles()
 
-//    val jsonElement = Serializer.json.parseToJsonElement(savePath.readFile()).jsonObject["CompleteSave"]!!.jsonObject["SslValue"]!!
-
-//    val discoveredObjectives = jsonElement.jsonObject["discoveredObjectives"]
-//        ?.let { Serializer.json.decodeFromJsonElement<List<String>>(it) }
-//
-//    discoveredObjectives?.forEach { it.info() }
-
     system("start steam://rungameid/1465360")
 
     waitForSessionEnd()
@@ -36,7 +29,9 @@ fun main(args: Array<String>) {
 }
 
 fun waitForSessionEnd() = runBlocking {
+    //we are looking for this in the running tasks
     val imageName = "SnowRunner.exe"
+    //INFO: will be returned if SnowRunner.exe is not found
     val notFound = "INFO:"
     val command = "tasklist /FO CSV /FI \"ImageName eq SnowRunner.exe\" /NH"
 
