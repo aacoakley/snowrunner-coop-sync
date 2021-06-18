@@ -10,7 +10,7 @@ fun SavePath.getSaveFiles(): List<String> = "dir $path /B".executeCommand()
     .filter {
         it.startsWith("fog".prepend(saveSlot))
                 || it.startsWith("sts".prepend(saveSlot))
-                || it == name.append(saveSlot)
+                || it == name
     }
 
 fun SavePath.moveNewFiles(newSave: String) {
@@ -53,5 +53,5 @@ fun packageSaveState(savePath: SavePath) {
     "cd ${savePath.secondaryPath} && tar.exe -acf SnowRunnerSync.zip ${Constants.snowRunnerFolder}".executeCommand()
         .info("Compressing Save Data")
     //delete tmp folder
-    "rmdir /s /q SnowRunnerSync".executeCommand().info("Cleaning up temp folder")
+    "rmdir /s /q ${savePath.secondaryPath}\\SnowRunnerSync".executeCommand().info("Cleaning up temp folder")
 }

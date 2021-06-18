@@ -41,7 +41,7 @@ fun waitForSessionEnd() = runBlocking {
 
 suspend fun waitForProcess(command: String, message: String) {
     while (command.executeCommand().contains(message)) {
-        delay(2000L)
+        delay(3000L)
     }
 }
 

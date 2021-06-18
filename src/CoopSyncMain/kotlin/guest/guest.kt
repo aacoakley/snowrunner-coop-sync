@@ -1,30 +1,33 @@
 package guest
 
-import MattsSave
-import util.Json.json
 import data.SaveFile
 import data.SavePath
 import extensions.backupSaveFiles
 import extensions.moveNewFiles
-import extensions.removeOldFiles
+import extensions.readFile
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.default
-import util.CompleteSave
 import util.Constants
-import util.OldSave
+import util.Json.json
 
 fun main(args: Array<String>) {
     val savePath = parseArgs(args)
     savePath.backupSaveFiles()
 
-    val originalSave = SaveFile(json.parseToJsonElement(MattsSave.data))
-    val preSessionSave = SaveFile(json.parseToJsonElement(OldSave.data))
-    val postSessionSave = SaveFile(json.parseToJsonElement(CompleteSave.data))
+    val originalSave = SaveFile(json.parseToJsonElement(savePath.readFile()))
+    val preSessionSave = SaveFile(json.parseToJsonElement(savePath.readFile(path = savePath.secondaryPath)))
+    val postSessionSave = SaveFile(
+        json.parseToJsonElement(
+            savePath.readFile(
+                path = savePath.secondaryPath,
+                name = savePath.name.replaceAfter('.', "bak")
+            )
+        )
+    )
 
     val newSave = JsonProcessor().syncSaves(originalSave, preSessionSave, postSessionSave)
     savePath.moveNewFiles(newSave)
-    TODO("Implement file movement")
 }
 
 private fun parseArgs(args: Array<String>): SavePath {

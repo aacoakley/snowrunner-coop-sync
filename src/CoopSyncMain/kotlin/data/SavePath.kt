@@ -11,11 +11,11 @@ class SavePath(rawPath: String, fileName: String, saveSlot: Int, secondaryPath: 
 
     val backupLocation = "$path\\backupSaves\\${Time.instant()}".info("Backup Path: ").also { it.makeDir() }
 
-    val name = fileName.append(saveSlot).info("File name: ")
+    //Save files start at 0
+    val saveSlot = saveSlot - 1
+
+    val name = fileName.append(this.saveSlot).info("File name: ")
 
     val secondaryPath = "cd $secondaryPath && cd".executeCommand()
         .filter { it != ('\n') }
-
-    //Save files start at 0
-    val saveSlot = saveSlot - 1
 }
