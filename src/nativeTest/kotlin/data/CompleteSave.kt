@@ -2,7 +2,7 @@ package data
 
 object CompleteSave {
     const val json = """{
-    "data.CompleteSave": {
+    "CompleteSave": {
         "SslValue": {
             "objVersion": 6,
             "objectiveStates": {

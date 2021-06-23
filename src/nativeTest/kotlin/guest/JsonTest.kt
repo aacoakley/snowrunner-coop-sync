@@ -24,7 +24,7 @@ internal class JsonTest {
 
     @Test
     fun test() {
-        println(postSessionSave.fullJsonElement.toString())
+//        println(postSessionSave.fullJsonElement.toString())
 
         val json = JsonProcessor().syncSaves(originalSave, preSessionSave, postSessionSave)
 

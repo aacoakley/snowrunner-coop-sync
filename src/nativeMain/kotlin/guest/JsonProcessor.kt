@@ -88,7 +88,7 @@ class JsonProcessor {
                 infoln("10")
                 put("SslType", originalSave.fullJsonElement.jsonObject["CompleteSave"]!!.jsonObject["SslType"]!!)
 
-                put("cfg_version", originalSave.fullJsonElement.jsonObject["cfg_version"]!!)
+                put("cfg_version", originalSave.fullJsonElement.jsonObject["CompleteSave"]!!.jsonObject["cfg_version"]!!)
                 infoln("11")
 
             }
