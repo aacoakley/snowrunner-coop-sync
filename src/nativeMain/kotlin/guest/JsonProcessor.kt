@@ -1,11 +1,20 @@
 package guest
 
-import util.Json.json
 import data.SaveFile
 import extensions.info
 import extensions.infoln
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.add
+import kotlinx.serialization.json.buildJsonArray
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.put
+import kotlinx.serialization.json.putJsonObject
+import util.Json.json
 import util.readSave
 
 class JsonProcessor {
@@ -34,19 +43,16 @@ class JsonProcessor {
                 preSessionSave.viewedUnactivatedObjectives(),
                 postSessionSave.viewedUnactivatedObjectives()
             )
-        saveData[watchPointsData] = diff(preSessionSave.watchPointsData(), postSessionSave.watchPointsData())
+        saveData[watchPointsData] = originalSave.watchPointsData().diff(preSessionSave.watchPointsData(), postSessionSave.watchPointsData())
         saveData[visitedLevels] = originalSave.visitedLevels().diff(preSessionSave.visitedLevels(), postSessionSave.visitedLevels())
-        saveData[objectiveStates] = diff(preSessionSave.objectiveStates(), postSessionSave.objectiveStates())
-        saveData[discoveredTrucks] = diff(preSessionSave.objectiveStates(), postSessionSave.objectiveStates())
+        saveData[objectiveStates] = originalSave.objectiveStates().diff(preSessionSave.objectiveStates(), postSessionSave.objectiveStates())
+        saveData[discoveredTrucks] = originalSave.discoveredTrucks().diff(preSessionSave.discoveredTrucks(), postSessionSave.discoveredTrucks())
         saveData[newTrucks] = originalSave.newTrucks().diff(preSessionSave.newTrucks(), postSessionSave.newTrucks()).also {
-            saveData[ownedTrucks] = originalSave.ownedTrucks().processOwnedTrucks(preSessionSave.ownedTrucks(), postSessionSave.ownedTrucks(), it)
+            saveData[ownedTrucks] = originalSave.ownedTrucks().processOwnedTrucks(preSessionSave.ownedTrucks(), postSessionSave.ownedTrucks(), it).info("processed: ")
         }
 
-        infoln("Owned trucks: ${saveData[ownedTrucks]}")
-        infoln("New trucks: ${saveData[newTrucks]}")
 
         val elementEntries = originalSave.fullJsonElement.readSave().toMap()
-//        infoln(elementEntries.toString())
 
         val newSave = buildJsonObject {
             infoln("1")
@@ -54,55 +60,56 @@ class JsonProcessor {
                 infoln("2")
                 putJsonObject("SslValue") {
                     infoln("3")
+                    elementEntries.forEach { entry ->
 
-                    elementEntries.forEach {
-                        put(it.key, it.value)
+                        if (entry.key == "persistentProfileData") {
+                            putJsonObject(entry.key) {
+                                entry.value.toMap().forEach { put(it.key, it.value) }
+                                saveData[discoveredTrucks]?.let { put(discoveredTrucks, it) }
+                                saveData[newTrucks]?.let { put(newTrucks, it) }
+                                saveData[ownedTrucks]?.let { put(ownedTrucks, it) }
+                            }
+                        } else if (entry.key == watchPointsData) {
+                            putJsonObject(entry.key) {
+                                entry.value.toMap().forEach { put(it.key, it.value) }
+                                saveData[watchPointsData]?.let {
+                                    put("data", it)
+                                }
+                            }
+                        }
                     }
                     infoln("4")
 
                     saveData[discoveredObjectives]?.let { put(discoveredObjectives, it) }
                     saveData[viewedUnactivatedObjectives]?.let { put(viewedUnactivatedObjectives, it) }
-                    saveData[watchPointsData]?.let {
-                        putJsonObject(watchPointsData) {
-                            put("data", it)
-                        }
-                    }
+
                     infoln("5")
 
                     saveData[visitedLevels]?.let { put(visitedLevels, it) }
                     saveData[objectiveStates]?.let { put(objectiveStates, it) }
                     infoln("6")
 
-                    putJsonObject("persistentProfileData") {
-                        infoln("7")
-
-                        saveData[discoveredTrucks]?.let { put(discoveredTrucks, it) }
-                        saveData[newTrucks]?.let { put(newTrucks, it) }
-                        saveData[ownedTrucks]?.let { put(ownedTrucks, it) }
-                    }
-                    infoln("8")
-
                     infoln("9")
 
                 }
-                infoln("10")
                 put("SslType", originalSave.fullJsonElement.jsonObject["CompleteSave"]!!.jsonObject["SslType"]!!)
 
-                put("cfg_version", originalSave.fullJsonElement.jsonObject["CompleteSave"]!!.jsonObject["cfg_version"]!!)
                 infoln("11")
 
             }
+            put("cfg_version", originalSave.fullJsonElement.jsonObject["cfg_version"]!!)
+
         }
 
-         return json.encodeToString(newSave)
+        return json.encodeToString(newSave)
     }
 
-    private fun JsonObject.processOwnedTrucks(preSessionOwned: JsonElement, postSessionOwned: JsonElement, newTrucks: JsonElement): JsonObject {
+    private fun JsonObject.processOwnedTrucks(preSessionOwned: JsonElement, postSessionOwned: JsonElement, newTrucks: JsonArray): JsonObject {
 //    val diffNewTrucks = newTrucks.toList().minus(keys.toList())
         val diffOwnedTrucks = postSessionOwned.jsonObject.toMap().minus(preSessionOwned.jsonObject.toMap())
-
         return buildJsonObject {
             newTrucks.toList().forEach {
+                this@processOwnedTrucks.forEach { put(it.key, it.value) }
                 if (diffOwnedTrucks.containsKey(it) && !this@processOwnedTrucks.containsKey(it)) put(it, 1)
             }
         }
@@ -122,24 +129,24 @@ class JsonProcessor {
 
     private fun List<String>.diff(preSessionSave: List<String>, postSessionSave: List<String>): JsonArray {
         infoln("diff")
-        val diff = postSessionSave.toSet().minus(preSessionSave.toSet())
+        val diff = postSessionSave.toMutableSet().minus(preSessionSave.toSet())
         val set = diff.toMutableSet().also { it.addAll(this) }
         return buildJsonArray {
             set.forEach { add(it) }
         }
     }
 
-    private fun diff(preSessionSave: JsonObject, postSessionSave: JsonObject): JsonElement {
+    private fun JsonObject.diff(preSessionSave: JsonObject, postSessionSave: JsonObject): JsonElement {
+
         val preObjects = preSessionSave.toMap()
         val postObjects = postSessionSave.toMap()
-        val diffs = mutableMapOf<String, JsonElement>()
+        val diffs = this.toMap()
 
         postObjects.forEach {
             if (it.value != preObjects[it.key]) {
                 diffs[it.key] = it.value
             }
         }
-        diffs.forEach { infoln("${it.key}: ${it.value}") }
         return buildJsonObject {
             diffs.forEach { put(it.key, it.value) }
         }
